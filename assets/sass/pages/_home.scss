@@ -1,0 +1,197 @@
+.home-banner {
+  color: $color-white;
+  position: relative;
+
+  &--image {
+    max-width: 100%;
+    width: 100%;
+
+    @include breakpoint("bp-700") {
+      @include fullScreen;
+      object-fit: cover;
+    }
+  }
+
+  &--border {
+    @include fullScreen;
+    left: 0;
+    padding: 1.2rem;
+    position: absolute;
+    top: 0;
+  }
+
+  &--white-box {
+    background-color: rgba($color-white, 0.5);
+    display: none;
+    height: 40vh;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 45vw;
+
+    @include breakpoint("bp-1000") {
+      display: block;
+    }
+  }
+
+  &--text {
+    font-size: 2.4rem;
+    margin: 0;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+
+    @include breakpoint("bp-700") {
+      font-size: 4rem;
+      left: 50%;
+      margin: 1.6rem 0;
+      top: 67%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &--explore {
+    cursor: pointer;
+    font-size: 1.6rem;
+    left: 50%;
+    position: absolute;
+    top: 72%;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+
+    @include breakpoint("bp-700") {
+      top: 85%;
+    }
+  }
+}
+
+.home {
+  &-about,
+  &-weddings,
+  &-couples,
+  &-families,
+  &-contact {
+    margin: 2rem 0;
+
+    @include breakpoint("bp-700") {
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    a {
+      color: $color-copper-mauve;
+      font-size: 1.8rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+  }
+}
+
+.home-about {
+  @include vertCenter;
+
+  img {
+    width: 140px;
+
+    @include breakpoint("bp-600") {
+      width: auto;
+    }
+  }
+
+  p {
+    font-size: 1.8rem;
+    margin: 1rem auto;
+    text-align: center;
+    width: 85%;
+
+    @include breakpoint("bp-700") {
+      font-size: 2.2rem;
+    }
+  }
+
+  a,
+  p {
+    z-index: 99999;
+  }
+}
+
+.home-weddings,
+.home-couples,
+.home-families {
+  position: relative;
+  justify-content: space-between;
+
+  .section {
+    &--text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 4%;
+      z-index: 999999;
+
+      @include breakpoint("bp-700") {
+        flex-basis: 30%;
+        height: 100vh;
+        margin-left: 4%;
+        position: absolute;
+        top: 0;
+        width: 30%;
+      }
+
+      h2 {
+        font-family: "Raleway", sans-serif;
+      }
+
+      p {
+        line-height: 1.75;
+      }
+    }
+
+    &--images {
+      padding: 1px 0 6%;
+
+      @include breakpoint("bp-700") {
+        left: 35%;
+        position: relative;
+        width: 65%;
+      }
+
+      img {
+        display: block;
+        height: auto;
+        margin-left: 4%;
+        margin-top: 6%;
+        max-width: 90%;
+        width: 90%;
+      }
+    }
+  }
+}
+
+.home-weddings,
+.home-families {
+  background-color: $color-dark-forest;
+  color: $color-white;
+}
+
+.home-contact {
+  @include vertCenter;
+  text-align: center;
+
+  @include breakpoint("bp-700") {
+    text-align: initial;
+  }
+
+  h2 {
+    font-family: "Raleway", sans-serif;
+  }
+
+  h2,
+  p,
+  a {
+    z-index: 999999;
+  }
+}

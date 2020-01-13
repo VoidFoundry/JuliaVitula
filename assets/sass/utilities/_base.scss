@@ -1,0 +1,57 @@
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 10px;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  font-size: 1.6rem;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Playfair Display SC", sans-serif;
+}
+
+.site--border {
+  &__white,
+  &__pink {
+    display: none;
+    height: 97%;
+    left: 1.5%;
+    position: fixed;
+    top: 1.5%;
+    transition: opacity 0.2s linear;
+    width: 97%;
+    z-index: 9999;
+
+    @include breakpoint("bp-800") {
+      display: block;
+    }
+  }
+
+  &__pink {
+    opacity: 0;
+  }
+
+  &__white {
+    opacity: 100;
+  }
+}
+
+.link-arrow {
+  height: 11px;
+  margin-left: 10px;
+}

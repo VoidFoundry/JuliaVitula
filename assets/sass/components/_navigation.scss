@@ -1,0 +1,119 @@
+.navigation {
+  position: fixed;
+  width: 100%;
+  z-index: 99999;
+
+  &--actions {
+    cursor: pointer;
+    display: flex;
+    left: 4vw;
+    position: absolute;
+    top: 4.5vh;
+
+    &--lines {
+      align-items: flex-end;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      &__long,
+      &__short {
+        background-color: rgba($color-white, 0.6);
+        height: 2px;
+      }
+
+      &__long {
+        margin-bottom: 3px;
+        width: 20px;
+      }
+
+      &__short {
+        width: 15px;
+      }
+    }
+
+    &--button {
+      background: none;
+      border: 0;
+      color: $color-white;
+      cursor: pointer;
+      outline: none;
+    }
+  }
+
+  &--menu {
+    display: none;
+  }
+}
+
+.site-nav {
+  align-items: center;
+  display: flex;
+  transition: left 0.2s linear, opacity 0.2s linear;
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    justify-content: space-around;
+    list-style-type: none;
+    padding-left: 0;
+    text-align: center;
+    width: 100%;
+
+    .nav-current {
+      a {
+        color: $color-dark-forest;
+      }
+    }
+
+    a {
+      color: $color-white;
+      font-size: 2.8rem;
+      text-decoration: none;
+      transition: color 0.2s linear;
+
+      &:hover {
+        color: $color-dark-forest;
+      }
+    }
+  }
+
+  .close-nav {
+    color: $color-white;
+    cursor: pointer;
+    font-size: 4rem;
+    position: absolute;
+    right: 15px;
+    top: 0;
+  }
+
+  &.closed,
+  &.open {
+    background-color: $color-turkish-mauve;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    width: 25vw;
+    z-index: 999999;
+  }
+
+  &.closed {
+    left: -25vw;
+    opacity: 0;
+
+    .nav {
+      opacity: 0;
+    }
+  }
+
+  &.open {
+    opacity: 1;
+    left: 0;
+
+    .nav {
+      opacity: 1;
+    }
+  }
+}

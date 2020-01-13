@@ -1,0 +1,13 @@
+@mixin fullScreen {
+  height: 100vh;
+  max-height: 100%;
+  max-width: 100%;
+  width: 100vw;
+}
+
+@mixin vertCenter {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

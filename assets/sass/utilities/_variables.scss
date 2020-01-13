@@ -1,0 +1,41 @@
+$color-copper-mauve: hsl(342, 21%, 50%);
+$color-dark-forest: hsl(165, 12%, 13%);
+$color-turkish-mauve: hsl(342, 31%, 60%);
+$color-white: hsl(365, 100%, 100%);
+
+// prettier-ignore
+$breakpoints: (
+  'bp-1500': (min-width: 93.75em), // 1500px
+    'bp-1400': (min-width: 87.5em), // 1400px
+      'bp-1300': (min-width: 81.25em), // 1300px
+        'bp-1200': (min-width: 75em), // 1200px
+          'bp-1100': (min-width: 68.75em), // 1100px
+            'bp-1000': (min-width: 62.5em), // 1000px
+              'bp-900': (min-width: 56.25em), // 900px
+                'bp-800': (min-width: 50em), // 800px
+                  'bp-700': (min-width: 43.75em), // 700px
+                    'bp-600': (min-width: 37.5em), // 600px
+                      'bp-500': (min-width: 31.25em), // 500px
+                        'bp-400': (min-width: 25em), // 400px
+                          'mh-600': (min-height: 37.5em), // min height of 600px
+                            'mh-475': (min-height: 29.6875em), // min height of 475px
+);
+
+@mixin breakpoint($breakpoint) {
+  $raw-query: map-get($breakpoints, $breakpoint);
+
+  @if $raw-query {
+    $query: if(
+      type-of($raw-query) == "string",
+      unquote($raw-query),
+      inspect($raw-query)
+    );
+
+    @media screen and #{$query} {
+      @content;
+    }
+  } @else {
+    @error 'No value found for `#{$breakpoint}`.'
+      + 'Please make sure it is defined in the `$breakpoints` map.';
+  }
+}
