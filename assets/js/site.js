@@ -39,6 +39,8 @@ const exploreText = document.querySelector(".home-banner--explore");
  */
 
 window.addEventListener("scroll", () => {
+  let sectionElements = Array.from(document.querySelectorAll("select"));
+  sectionElements.shift(); // remove the first element (aka, the banner)
   const multiplier = 0.5;
 
   const weddingsTop =
