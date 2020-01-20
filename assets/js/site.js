@@ -33,9 +33,9 @@ const pinkBorder = document.querySelector(".site--border__pink");
 const exploreText = document.querySelector(".home-banner--explore");
 
 //Background Color Shifting
-/* changes to keep working on...
- ** shift colors on top and bottom ~25% instead of half the screen...think I need to know scroll direction...https://codepen.io/lehollandaisvolant/pen/ryrrGx
- ** grab all "sections" within "main" element as a node list to target evens (dark sections) for changing "color" value? intro section would need to be exception and/or added to function below...worth the effort to abstract or just type out names manually?
+/*
+ * TODO: shift colors on top and bottom ~25% instead of half the screen...think I need to know scroll direction...https://codepen.io/lehollandaisvolant/pen/ryrrGx
+ * TODO: grab all "sections" within "main" element as a node list to target evens (dark sections) for changing "color" value? intro section would need to be exception and/or added to function below...worth the effort to abstract or just type out names manually?
  */
 
 window.addEventListener("scroll", () => {
