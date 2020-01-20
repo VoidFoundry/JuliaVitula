@@ -1,5 +1,6 @@
 // Sections
-const aboutJulia = document.querySelector("#about");
+const body = document.querySelector("body");
+const homeAbout = document.querySelector("#about");
 const homeWeddings = document.querySelector("#weddings");
 const homeWeddingsText = document
   .querySelector("#weddings")
@@ -12,7 +13,7 @@ const homeFamilies = document.querySelector("#families");
 const homeFamiliesText = document
   .querySelector("#families")
   .querySelector(".section--text");
-const yourStory = document.querySelector("#contact");
+const homeContact = document.querySelector("#contact");
 
 // Misc Items
 const whiteBorder = document.querySelector(".site--border__white");
@@ -30,6 +31,36 @@ const pinkBorder = document.querySelector(".site--border__pink");
 // const navItems = document.querySelector(".site-nav");
 // const closeNav = document.querySelector(".close-nav");
 const exploreText = document.querySelector(".home-banner--explore");
+
+//Background Color Shifting
+/* changes to keep working on...
+** shift colors on top and bottom ~25% instead of half the screen...think I need to know scroll direction...https://codepen.io/lehollandaisvolant/pen/ryrrGx
+** grab all "sections" within "main" element as a node list to target evens (dark sections) for changing "color" value? intro section would need to be exception and/or added to function below...worth the effort to abstract or just type out names manually?
+*/
+
+window.addEventListener("scroll", function() {
+  var multiplier = 0.5;
+
+  var weddingsTop = homeWeddings.getBoundingClientRect().top <= window.innerHeight * multiplier;
+  var weddingsBottom = homeWeddings.getBoundingClientRect().bottom >= window.innerHeight * multiplier;
+
+  var familiesTop = homeFamilies.getBoundingClientRect().top <= window.innerHeight * multiplier;
+  var familiesBottom = homeFamilies.getBoundingClientRect().bottom >= window.innerHeight * multiplier;
+
+  if ((weddingsTop && weddingsBottom) || (familiesTop && familiesBottom)) {
+    //body.classList.remove("bgLight");
+    body.classList.add("bgDark");
+    homeWeddings.style.color = "hsl(0, 0%, 100%)";
+    homeFamilies.style.color = "hsl(0, 0%, 100%)";
+
+  }
+  else {
+    body.classList.remove("bgDark");
+    //body.classList.add("bgLight");
+    homeWeddings.style.color = "hsl(0, 0%, 0%)";
+    homeFamilies.style.color = "hsl(0, 0%, 0%)";
+  }
+});
 
 if (window.innerWidth > 700) {
   console.log("hi");
@@ -100,7 +131,7 @@ if (window.innerWidth > 700) {
     }
 
     //   if (
-    //     yourStory.getBoundingClientRect().y -
+    //     homeContact.getBoundingClientRect().y -
     //       menuText.getBoundingClientRect().y -
     //       menuText.offsetHeight <=
     //     0
@@ -136,7 +167,7 @@ if (window.innerWidth > 700) {
     //     menuLineLong.style.backgroundColor = "rgba(255, 255, 255, 0.6)";
     //     menuLineShort.style.backgroundColor = "rgba(255, 255, 255, 0.6)";
     //   } else if (
-    //     aboutJulia.getBoundingClientRect().y -
+    //     homeAbout.getBoundingClientRect().y -
     //       menuText.getBoundingClientRect().y -
     //       menuText.offsetHeight <=
     //     0
@@ -163,7 +194,7 @@ if (window.innerWidth > 700) {
 
 exploreText.addEventListener("click", () => {
   window.scrollTo({
-    top: aboutJulia.getBoundingClientRect().top,
+    top: homeAbout.getBoundingClientRect().top,
     behavior: "smooth"
   });
 });
