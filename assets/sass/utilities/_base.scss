@@ -29,6 +29,12 @@ h6 {
   line-height: 1.2;
 }
 
+#svg-container {
+  position: fixed;
+  z-index: 999999;
+  width: 100vw;
+  height: 100vh;
+
 .bgLight {
   color: $color-black;
 }
@@ -50,7 +56,7 @@ h6 {
     z-index: 9999;
 
     @include breakpoint("bp-800") {
-      display: block;
+      display: none;
     }
   }
 
