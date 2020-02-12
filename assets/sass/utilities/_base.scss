@@ -29,45 +29,12 @@ h6 {
   line-height: 1.2;
 }
 
-#svg-container {
-  position: fixed;
-  z-index: 999999;
-  width: 100vw;
-  height: 100vh;
-}
-
 .bgLight {
   color: $color-black;
 }
 
 .bgDark {
   background-color: $color-dark-forest;
-}
-
-.site--border {
-  &__white,
-  &__pink {
-    display: none;
-    height: 97%;
-    left: 1.5%;
-    position: fixed;
-    top: 1.5%;
-    transition: opacity 0.2s linear;
-    width: 97%;
-    z-index: 9999;
-
-    @include breakpoint("bp-800") {
-      display: none;
-    }
-  }
-
-  &__pink {
-    opacity: 0;
-  }
-
-  &__white {
-    opacity: 100;
-  }
 }
 
 .link-arrow {

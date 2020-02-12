@@ -12,14 +12,6 @@
     }
   }
 
-  &--border {
-    @include fullScreen;
-    left: 0;
-    padding: 1.2rem;
-    position: absolute;
-    top: 0;
-  }
-
   &--white-box {
     background-color: rgba($color-white, 0.5);
     display: none;
