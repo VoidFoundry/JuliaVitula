@@ -15,6 +15,7 @@ body {
   line-height: 1.5;
   margin: 0;
   padding: 0;
+  transition: background-color 1s ease-out;
 }
 
 h1,
@@ -33,6 +34,13 @@ h6 {
   z-index: 999999;
   width: 100vw;
   height: 100vh;
+
+.bgLight {
+  color: $color-black;
+}
+
+.bgDark {
+  background-color: $color-dark-forest;
 }
 
 .site--border {
