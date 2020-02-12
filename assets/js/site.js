@@ -167,3 +167,308 @@ exploreText.addEventListener("click", () => {
     behavior: "smooth"
   });
 });
+
+// DECORATIVE FRAME
+//Decorative frame object, containing various values to draw the svg/shapes with
+let decorativeFrame = {
+  exists: false,
+  //unit system for setting the values of x/y points in each shape/path. the value of a unit is intended to change depending on the screen size.
+  units: {
+    //this should probably be changed to a getter, add if statement for different sizes based on window size
+    _1: 1 / 120, //at 1920 this equals 16
+    get _2() {
+      return decorativeFrame.units._1 * 2; //at 1920 this equals 32
+    },
+    get _3() {
+      return decorativeFrame.units._1 * 3; //at 1920 this equals 48
+    },
+    get _3_5() {
+      return decorativeFrame.units._1 * 3.5; //at 1920 this equals 56
+    },
+    //border was designed with inner stroke alignment but svg only supports center stroke alignment. to keep the stroke in the exact same place as designed the points can be placed in the middle of the designed stroke width, aka shifting their coordinates by half the stroke width.
+    get shift() {
+      return decorativeFrame.border.stroke.width * 0.5;
+    }
+  },
+  //values for the inner and outer border designs
+  border: {
+    fill: "none",
+    stroke: {
+      width: 2,
+      color: "green"
+    },
+    //inner border
+    inner: {
+      get x() {
+        return (window.innerWidth * decorativeFrame.units._2) + decorativeFrame.units.shift;
+      },
+      get y() {
+        return (window.innerWidth * decorativeFrame.units._2) + decorativeFrame.units.shift;
+      },
+      get width() {
+        return window.innerWidth - (decorativeFrame.border.inner.x * 2);
+      },
+      get height() {
+        return window.innerHeight - (decorativeFrame.border.inner.y * 2);
+      }
+    },
+    //outer border
+    outer: {
+      topLeft: {
+        point1: {
+          get x() {
+            return (window.innerWidth * decorativeFrame.units._1) + decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerWidth * decorativeFrame.units._3) + decorativeFrame.units.shift;
+          }
+        },
+        point2: {
+          get x() {
+            return (window.innerWidth * decorativeFrame.units._3) + decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerWidth * decorativeFrame.units._3) + decorativeFrame.units.shift;
+          }
+        },
+        point3: {
+          get x() {
+            return (window.innerWidth * decorativeFrame.units._3) + decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerWidth * decorativeFrame.units._1) + decorativeFrame.units.shift;
+          }
+        }
+      },
+      topRight: {
+        point1: {
+          get x() {
+            return (window.innerWidth - (window.innerWidth * decorativeFrame.units._3)) - decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerWidth * decorativeFrame.units._1) + decorativeFrame.units.shift;
+          }
+        },
+        point2: {
+          get x() {
+            return (window.innerWidth - (window.innerWidth * decorativeFrame.units._3)) - decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerWidth * decorativeFrame.units._3) + decorativeFrame.units.shift;
+          }
+        },
+        point3: {
+          get x() {
+            return (window.innerWidth - (window.innerWidth * decorativeFrame.units._1)) - decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerWidth * decorativeFrame.units._3) + decorativeFrame.units.shift;
+          }
+        }
+      },
+      bottomRight: {
+        point1: {
+          get x() {
+            return (window.innerWidth - (window.innerWidth * decorativeFrame.units._1)) - decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerHeight - (window.innerWidth * decorativeFrame.units._3)) - decorativeFrame.units.shift;
+          }
+        },
+        point2: {
+          get x() {
+            return (window.innerWidth - (window.innerWidth * decorativeFrame.units._3)) - decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerHeight - (window.innerWidth * decorativeFrame.units._3)) - decorativeFrame.units.shift;
+          }
+        },
+        point3: {
+          get x() {
+            return (window.innerWidth - (window.innerWidth * decorativeFrame.units._3)) - decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerHeight - (window.innerWidth * decorativeFrame.units._1)) - decorativeFrame.units.shift;
+          }
+        }
+      },
+      bottomLeft: {
+        point1: {
+          get x() {
+            return (window.innerWidth * decorativeFrame.units._3) + decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerHeight - (window.innerWidth * decorativeFrame.units._1)) - decorativeFrame.units.shift;
+          }
+        },
+        point2: {
+          get x() {
+            return (window.innerWidth * decorativeFrame.units._3) + decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerHeight - (window.innerWidth * decorativeFrame.units._3)) - decorativeFrame.units.shift;
+          }
+        },
+        point3: {
+          get x() {
+            return (window.innerWidth * decorativeFrame.units._1) + decorativeFrame.units.shift;
+          },
+          get y() {
+            return (window.innerHeight - (window.innerWidth * decorativeFrame.units._3)) - decorativeFrame.units.shift;
+          }
+        }
+      }
+    }
+  },
+  //values for the matte
+  matte: {
+    fill: "none",
+    stroke: {
+      color: "yellow",
+      get width() {
+        return window.innerWidth * decorativeFrame.units._3_5;
+      }
+    },
+    get x() {
+      return (window.innerWidth * decorativeFrame.units._3_5) * 0.5;
+    },
+    get y() {
+      return (window.innerWidth * decorativeFrame.units._3_5) * 0.5;
+    },
+    get width() {
+      return window.innerWidth - (decorativeFrame.matte.x * 2);
+    },
+    get height() {
+      return window.innerHeight - (decorativeFrame.matte.y * 2);
+    }
+  }
+};
+
+//Function that will build the svg element (and the shapes within) for the decorative frame, assign it values based on current window size, and insert it into the page
+function buildDecorativeFrame() {
+  let svg;
+  let matte;
+  let borderOuter;
+  let borderInner;
+
+  //if frame already exists on page grab those elements
+  if (decorativeFrame.exists) {
+    svg = document.getElementById("df");
+    matte = document.getElementById("df-matte");
+    borderOuter = document.getElementById("df-border-outer");
+    borderInner = document.getElementById("df-border-inner");
+  }
+  //otherwise (aka if frame does not exist) create the elements
+  else {
+    svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    matte = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    borderOuter = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
+    borderInner = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+
+    svg.append(matte);
+    svg.append(borderOuter);
+    svg.append(borderInner);
+
+    svg.setAttribute("id", "df");
+    svg.style.position = "fixed";
+    svg.style.zIndex = "9999999";
+    svg.style.pointerEvents = "none";
+
+    matte.setAttribute("id", "df-matte");
+    matte.setAttribute("fill", decorativeFrame.matte.fill);
+
+    borderOuter.setAttribute("id", "df-border-outer");
+    borderOuter.setAttribute("fill", decorativeFrame.border.fill);
+
+    borderInner.setAttribute("id", "df-border-inner");
+    borderInner.setAttribute("fill", decorativeFrame.border.fill);
+  };
+
+  svg.setAttribute("width", window.innerWidth);
+  svg.setAttribute("height", window.innerHeight);
+  svg.setAttribute("viewBox", "0 0 "
+  + window.innerWidth
+  + " "
+  + window.innerHeight);
+
+  matte.setAttribute("x", decorativeFrame.matte.x);
+  matte.setAttribute("y", decorativeFrame.matte.y);
+  matte.setAttribute("width", decorativeFrame.matte.width);
+  matte.setAttribute("height", decorativeFrame.matte.height);
+  matte.setAttribute("stroke", decorativeFrame.matte.stroke.color);
+  matte.setAttribute("stroke-width", decorativeFrame.matte.stroke.width);
+
+  borderOuter.setAttribute("points", decorativeFrame.border.outer.topLeft.point1.x
+  + ","
+  + decorativeFrame.border.outer.topLeft.point1.y
+  + " "
+  + decorativeFrame.border.outer.topLeft.point2.x
+  + ","
+  + decorativeFrame.border.outer.topLeft.point2.y
+  + " "
+  + decorativeFrame.border.outer.topLeft.point3.x
+  + ","
+  + decorativeFrame.border.outer.topLeft.point3.y
+  + " "
+  + decorativeFrame.border.outer.topRight.point1.x
+  + ","
+  + decorativeFrame.border.outer.topRight.point1.y
+  + " "
+  + decorativeFrame.border.outer.topRight.point2.x
+  + ","
+  + decorativeFrame.border.outer.topRight.point2.y
+  + " "
+  + decorativeFrame.border.outer.topRight.point3.x
+  + ","
+  + decorativeFrame.border.outer.topRight.point3.y
+  + " "
+  + decorativeFrame.border.outer.bottomRight.point1.x
+  + ","
+  + decorativeFrame.border.outer.bottomRight.point1.y
+  + " "
+  + decorativeFrame.border.outer.bottomRight.point2.x
+  + ","
+  + decorativeFrame.border.outer.bottomRight.point2.y
+  + " "
+  + decorativeFrame.border.outer.bottomRight.point3.x
+  + ","
+  + decorativeFrame.border.outer.bottomRight.point3.y
+  + " "
+  + decorativeFrame.border.outer.bottomLeft.point1.x
+  + ","
+  + decorativeFrame.border.outer.bottomLeft.point1.y
+  + " "
+  + decorativeFrame.border.outer.bottomLeft.point2.x
+  + ","
+  + decorativeFrame.border.outer.bottomLeft.point2.y
+  + " "
+  + decorativeFrame.border.outer.bottomLeft.point3.x
+  + ","
+  + decorativeFrame.border.outer.bottomLeft.point3.y);
+  borderOuter.setAttribute("stroke", decorativeFrame.border.stroke.color);
+  borderOuter.setAttribute("stroke-width", decorativeFrame.border.stroke.width);
+
+  borderInner.setAttribute("x", decorativeFrame.border.inner.x);
+  borderInner.setAttribute("y", decorativeFrame.border.inner.y);
+  borderInner.setAttribute("width", decorativeFrame.border.inner.width);
+  borderInner.setAttribute("height", decorativeFrame.border.inner.height);
+  borderInner.setAttribute("stroke", decorativeFrame.border.stroke.color);
+  borderInner.setAttribute("stroke-width", decorativeFrame.border.stroke.width);
+
+  //if the frame does NOT exist
+  if (!decorativeFrame.exists) {
+    document.body.prepend(svg);
+    decorativeFrame.exists = true;
+    return
+  }
+  //otherwise (aka if frame does exist)
+  else {
+    return
+  };
+}
+
+//When page is loaded call the function to build the decorative frame
+buildDecorativeFrame();
+
+//Watch for the window to be resized and, when it is, call the function to update the decorative frame
+window.addEventListener("resize", buildDecorativeFrame);

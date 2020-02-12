@@ -1,0 +1,80 @@
+get the height and width of the window (or viewport?)
+
+
+
+/// ORIGINAL DESIGN SPECS ///
+1unit = 1/120   // 16
+2unit = 1unit * 2  // 32  1/60  2/120
+3unit = 1unit * 3   // 48  1/40  3/120
+
+
+
+INNER BORDER
+just a rectangle
+
+x and y = view width * 2unit   // 32
+
+width = view width - x*2   // 1856
+height = view height - y*2   // 1016
+
+
+OUTER BORDER
+polygon or path
+
+top left
+point 1
+x = view width * 1unit   // 16
+y = view width * 3unit   // 48
+
+point 2
+x = view width * 3unit   // 48
+y = view width * 3unit   // 48
+
+point 3
+x = view width * 3unit   // 48
+y = view width * 1unit   // 16
+
+
+top right
+point 1
+x = view width - (view width * 3unit)   // 1872
+y = view width * 1unit   // 16
+
+point 2
+x = view width - (view width * 3unit)   // 1872
+y = view width * 3unit   // 48
+
+point 3
+x = x = view width - (view width * 1unit)   // 1904
+y = view width * 3unit   // 48
+
+
+bottom right
+point 1
+x = view width - (view width * 1unit)   // 1904
+y = view height - (view width * 3unit)   // 1032
+
+point 2
+x = view width - (view width * 3unit)   // 1872
+y = view height - (view width * 3unit)   // 1032
+
+point 3
+x = view width - (view width * 3unit)   // 1872
+y = view height - (view width * 1unit)   // 1064
+
+
+bottom left
+point 1
+x = view width * 3unit   // 48
+y = view height - (view width * 1unit)   // 1064
+
+point 2
+x = view width * 3unit   // 48
+y = view height - (view width * 3unit)   // 1032
+
+point 3
+x = view width * 1unit   // 16
+y = view height - (view width * 3unit)   // 1032
+
+
+MATTE
