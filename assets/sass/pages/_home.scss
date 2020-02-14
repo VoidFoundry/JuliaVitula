@@ -12,14 +12,6 @@
     }
   }
 
-  &--border {
-    @include fullScreen;
-    left: 0;
-    padding: 1.2rem;
-    position: absolute;
-    top: 0;
-  }
-
   &--white-box {
     background-color: rgba($color-white, 0.5);
     display: none;
@@ -83,9 +75,21 @@
 
     a {
       color: $color-copper-mauve;
-      font-size: 1.8rem;
-      font-weight: 600;
+      font-family: "Playfair Display SC", serif;
+      font-size: 3.6rem;
+      font-weight: 700;
       text-decoration: none;
+    }
+
+    h2 {
+      font-size: 7.2rem;
+      margin: 0;
+    }
+
+    p {
+      font-size: 3rem;
+      font-weight: 200;
+      line-height: 1.2;
     }
   }
 }
@@ -102,13 +106,13 @@
   }
 
   p {
-    font-size: 1.8rem;
+    font-size: 2.4rem; //halved big-screen value, for now
+    line-height: 1.2;
     margin: 1rem auto;
-    text-align: center;
-    width: 85%;
+    width: 25em;
 
     @include breakpoint("bp-700") {
-      font-size: 2.2rem;
+      font-size: 4.8rem;
     }
   }
 
@@ -128,44 +132,46 @@
     &--text {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      margin: 0 4%;
+      justify-content: start;
+      padding: 192px 5% 56px;
       z-index: 999999;
 
       @include breakpoint("bp-700") {
-        flex-basis: 30%;
+        flex-basis: 40%; //not sure if this needs to match the width? changed from 30% to 40%.
         height: 100vh;
-        margin-left: 4%;
+        padding-left: 5%;
+        padding-right: 3.33%;
         position: absolute;
         top: 0;
-        width: 30%;
+        width: 40%;
       }
 
-      h2 {
-        font-family: "Raleway", sans-serif;
-      }
-
-      p {
-        line-height: 1.75;
-      }
+      /*p {
+        font-size: 3rem;
+        font-weight: 200;
+        line-height: 1.2;
+      }*/
     }
 
     &--images {
-      padding: 1px 0 6%;
+      padding: 56px 56px 56px 0;
 
       @include breakpoint("bp-700") {
-        left: 35%;
+        left: 40%;
         position: relative;
-        width: 65%;
+        width: 60%;
       }
 
       img {
         display: block;
         height: auto;
-        margin-left: 4%;
-        margin-top: 6%;
-        max-width: 90%;
-        width: 90%;
+        max-width: 100%;
+        width: 100%;
+        padding-bottom: 24px;
+      }
+
+      img:last-child {
+        padding-bottom: 0;
       }
     }
   }
@@ -173,7 +179,7 @@
 
 .home-weddings,
 .home-families {
-  background-color: $color-dark-forest;
+  //background-color: $color-dark-forest;
   color: $color-white;
 }
 
@@ -182,11 +188,7 @@
   text-align: center;
 
   @include breakpoint("bp-700") {
-    text-align: initial;
-  }
-
-  h2 {
-    font-family: "Raleway", sans-serif;
+    //text-align: initial;
   }
 
   h2,
