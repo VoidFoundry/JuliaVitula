@@ -16,8 +16,6 @@ const homeFamiliesText = document
 const homeContact = document.querySelector("#contact");
 
 // Misc Items
-const whiteBorder = document.querySelector(".site--border__white");
-const pinkBorder = document.querySelector(".site--border__pink");
 // const menuText = document.querySelector(".navigation--actions--button");
 // const menuLineLong = document.querySelector(
 //   ".navigation--actions--lines__long"
@@ -70,14 +68,6 @@ window.addEventListener("scroll", () => {
 
 if (window.innerWidth > 700) {
   window.addEventListener("scroll", () => {
-    if (window.scrollY >= window.innerHeight / 2) {
-      whiteBorder.style.opacity = "0";
-      pinkBorder.style.opacity = "100";
-    } else {
-      whiteBorder.style.opacity = "100";
-      pinkBorder.style.opacity = "0";
-    }
-
     if (homeWeddings.getBoundingClientRect().y <= 0) {
       homeWeddingsText.style.position = "fixed";
       homeWeddingsText.style.top = "50%";
