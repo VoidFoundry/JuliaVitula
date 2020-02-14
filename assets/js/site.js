@@ -1,5 +1,4 @@
 // Sections
-const body = document.querySelector("body");
 const homeAbout = document.querySelector("#about");
 const homeWeddings = document.querySelector("#weddings");
 const homeWeddingsText = document
@@ -55,14 +54,20 @@ window.addEventListener("scroll", () => {
 
   if ((weddingsTop && weddingsBottom) || (familiesTop && familiesBottom)) {
     //body.classList.remove("bgLight");
-    body.classList.add("bgDark");
+    document.body.classList.add("bgDark");
     homeWeddings.style.color = "hsl(0, 0%, 100%)";
     homeFamilies.style.color = "hsl(0, 0%, 100%)";
+    document.getElementById("df-matte").setAttribute("stroke", "hsl(165, 12%, 13%)");
+    document.getElementById("df-border-outer").setAttribute("stroke", "hsl(342, 31%, 60%)");
+    document.getElementById("df-border-inner").setAttribute("stroke", "hsl(342, 31%, 60%)");
   } else {
-    body.classList.remove("bgDark");
+    document.body.classList.remove("bgDark");
     //body.classList.add("bgLight");
     homeWeddings.style.color = "hsl(0, 0%, 0%)";
     homeFamilies.style.color = "hsl(0, 0%, 0%)";
+    document.getElementById("df-matte").setAttribute("stroke", "hsl(0, 0%, 100%)");
+    document.getElementById("df-border-outer").setAttribute("stroke", "hsl(342, 21%, 50%)");
+    document.getElementById("df-border-inner").setAttribute("stroke", "hsl(342, 21%, 50%)");
   }
 });
 
@@ -221,7 +226,7 @@ let decorativeFrame = {
     fill: "none",
     stroke: {
       width: 2,
-      color: "green"
+      color: "hsl(342, 31%, 60%)"
     },
     //inner border
     inner: {
@@ -350,7 +355,7 @@ let decorativeFrame = {
   matte: {
     fill: "none",
     stroke: {
-      color: "yellow",
+      color: "hsl(165, 12%, 13%)",
       get width() {
         return window.innerWidth * decorativeFrame.units._3_5;
       }
@@ -402,12 +407,15 @@ function buildDecorativeFrame() {
 
     matte.setAttribute("id", "df-matte");
     matte.setAttribute("fill", decorativeFrame.matte.fill);
+    matte.style.transition = "stroke 0.5s ease-in-out";
 
     borderOuter.setAttribute("id", "df-border-outer");
     borderOuter.setAttribute("fill", decorativeFrame.border.fill);
+    borderOuter.style.transition = "stroke 0.5s ease-in-out";
 
     borderInner.setAttribute("id", "df-border-inner");
     borderInner.setAttribute("fill", decorativeFrame.border.fill);
+    borderInner.style.transition = "stroke 0.5s ease-in-out";
   };
 
   svg.setAttribute("width", window.innerWidth);
